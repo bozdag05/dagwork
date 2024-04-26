@@ -28,7 +28,7 @@ class ContractorModel(models.Model):
     number = models.CharField(max_length=12, verbose_name='Номер')
     messages = models.TextField(verbose_name='Соц.сети', blank=True)
     description = models.TextField(verbose_name='О себе', blank=True)
-    experience = models.DateField(verbose_name='Опыт работы', blank=True, null=True)
+    experience = models.CharField(max_length=150, verbose_name='Опыт работы', blank=True)
     link_resume = models.TextField(verbose_name='Ссылки на резюме/ГИТ/ и т.д.', blank=True)
     softskills = models.ManyToManyField('SoftSkillsModel', verbose_name='гибкие навыки', blank=True,
                                         related_name='soft')
