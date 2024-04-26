@@ -7,7 +7,7 @@ from django.conf import settings
 # ассоциирования профилей с пользователями
 class ClientModel(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Заказчик')
-    date_of_birth = models.DateField(blank=True, null=True, verbose_name='Заказчик')
+    date_of_birth = models.DateField(blank=True, null=True, verbose_name='дата рождения')
     photo = models.ImageField(upload_to='image/users/%Y/%m/%d', blank=True, null=True, verbose_name='Фото')
     number = models.CharField(max_length=12, verbose_name='Номер')
     messages = models.TextField(blank=True, verbose_name='Соц.сети')
@@ -23,7 +23,7 @@ class ClientModel(models.Model):
 # ассоциирования профилей с пользователями
 class ContractorModel(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Исполнитель')
-    date_of_birth = models.DateField(blank=True, null=True, verbose_name='День рождение')
+    date_of_birth = models.DateField(blank=True, null=True, verbose_name='дата рождения')
     photo = models.ImageField(upload_to='image/users/%Y/%m/%d', blank=True, verbose_name='Фото')
     number = models.CharField(max_length=12, verbose_name='Номер')
     messages = models.TextField(verbose_name='Соц.сети', blank=True)
