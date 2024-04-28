@@ -3,12 +3,16 @@ from .models import ClientModel, ContractorModel, SoftSkillsModel, HardSkillsMod
 # Register your models here.
 
 
+# Указываем какие поля заказчика хотим отображать на дисплее
 class ClientAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["user", "date_of_birth", "number"]
 
 
+# Указываем какие поля исполнителя хотим отображать на дисплее
 class ContractorAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["user", "date_of_birth", "number", "experience"]
+
+# В оставшихся классах всего по 1 полю, поэтому там нечего отображать
 
 
 class SoftSkillsAdmin(admin.ModelAdmin):

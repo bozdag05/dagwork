@@ -22,11 +22,11 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# Убрали ключ из общего доступа (надо было в самом начале сделать)
+# Убрали ключ из общего доступа (надо было в самом начале сделать).
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True # Оставлю True, на всякий
 
 ALLOWED_HOSTS = []
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dagfreelance.apps.DagfreelanceConfig',
+    'dagfreelance.apps.DagfreelanceConfig', # Добавил наше приложение
 ]
 
 MIDDLEWARE = [
@@ -55,6 +55,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'dagwork.urls'
 
+# Указал путь к шаблонам
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'dagwork.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# Свизали БД PostgreSQL
+# Свизали БД PostgreSQL.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -122,8 +123,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+# Указал где искать статику
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Указал где искать медиа файлы
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type

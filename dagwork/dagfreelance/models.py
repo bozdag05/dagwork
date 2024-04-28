@@ -3,9 +3,9 @@ from django.conf import settings
 from django.urls import reverse
 
 
-# 1.Модель заказчика
-# 3.Поле user со взаимосвязью один-к-одному будет использоваться для
-# ассоциирования профилей с пользователями
+# 1.Модель заказчика.
+# 3.Поле user со взаимосвязью один-к-одному будет использоваться для.
+# ассоциирования профилей с пользователями.
 class ClientModel(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Заказчик')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='дата рождения')
@@ -14,6 +14,7 @@ class ClientModel(models.Model):
     messages = models.TextField(blank=True, verbose_name='Соц.сети')
     description = models.TextField(blank=True, verbose_name='О себе')
 
+    # Создал абсолютную ссылку для записей заказчика
     def get_absolute_url(self):
         return reverse('profile_client', kwargs={"pk": self.pk})
 
@@ -21,10 +22,10 @@ class ClientModel(models.Model):
         return self.user.username
 
 
-# 1.Модель исполнителя
-# 2.Есть связ многие-к-мнгоим с моделями SoftSkillsModel, HardSkillsModel, SpecializationModel
-# 3.Поле user со взаимосвязью один-к-одному будет использоваться для
-# ассоциирования профилей с пользователями
+# 1.Модель исполнителя.
+# 2.Есть связ многие-к-мнгоим с моделями SoftSkillsModel, HardSkillsModel, SpecializationModel.
+# 3.Поле user со взаимосвязью один-к-одному будет использоваться для.
+# ассоциирования профилей с пользователями.
 class ContractorModel(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Исполнитель')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='дата рождения')
@@ -41,6 +42,7 @@ class ContractorModel(models.Model):
     specialization = models.ManyToManyField('SpecializationModel', verbose_name='Специализация', blank=True,
                                             related_name='specialization')
 
+    # Создал абсолютную ссылку для записей исполнителя
     def get_absolute_url(self):
         return reverse('profile_contractor', kwargs={"pk": self.pk})
 
@@ -48,7 +50,7 @@ class ContractorModel(models.Model):
         return self.user.username
 
 
-# Модель Софт скилы
+# Модель Софт скилы.
 class SoftSkillsModel(models.Model):
     title = models.CharField(max_length=150, verbose_name='softskills')
 
@@ -56,7 +58,7 @@ class SoftSkillsModel(models.Model):
         return self.title
 
 
-# 1.Модель Хард скилы
+# 1.Модель Хард скилы.
 class HardSkillsModel(models.Model):
     title = models.CharField(max_length=150, verbose_name='hardskills')
 
@@ -64,10 +66,9 @@ class HardSkillsModel(models.Model):
         return self.title
 
 
-# 1.Модель Специализации
+# 1.Модель Специализации.
 class SpecializationModel(models.Model):
     title = models.CharField(max_length=150, verbose_name='Специальность')
 
     def __str__(self):
         return self.title
-
