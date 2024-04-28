@@ -1,0 +1,99 @@
+{% extends "dagfreelance/base_dagfreelance.html" %}
+{% load static %}
+{% block title %}{{request.user.username}}{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    <div class="row">
+        <!--    ЭТО ЛЕВАЯ КОЛОНКА КОНТЕНТА ПОСТА -->
+        <div class="col-lg-8">
+            <!--    ЭТО ХЛЕБНЫЕ КРОШКИ -->
+            <nav aria-label="breadcrumb" class="my-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ contractor.user }}</li>
+                    {% if user.contractormodel.pk == contractor.pk %}
+                    <li class="breadcrumb-item active" aria-current="page"><a
+                            href="{% url 'contractor_edit_profile' %}">Редактировать профиль</a></li>
+                    {% endif %}
+                </ol>
+            </nav>
+            <!--    ЭТО ТЕЛО ПОСТА -->
+            {% if contractor.photo %}
+            <img class="img-fluid rounded" src="{{ contractor.photo.url }}" alt="" width="300" height="125">
+            {% else %}
+            <img class="img-fluid rounded"
+                 src="https://yt3.googleusercontent.com/8e5bJYYDVmJwMLp-ESI9oVlH2AfVNqrlz-KkwebUifhGcLreAx3cu2A28uGt8jPEreaRNHC6nQ=s900-c-k-c0x00ffffff-no-rj"
+                 alt="" width="300" height="125">
+            {% endif %}
+            <hr>
+            <h6>Краткая информация:</h6>
+            <p class="lead">Имя: {{ contractor.user.first_name }}</p>
+            <p class="lead">Фамиля: {{ contractor.user.last_name }}</p>
+            <p class="lead">День рождения: {{ contractor.date_of_birth }}</p>
+            <p class="lead">Почта: {{ contractor.user.email }}</p>
+            <p class="lead">Телефон: {{ contractor.number }}</p>
+            <p class="lead">Опыт работы: {{ contractor.experience }}</p>
+            <hr>
+            <h6>О себе:</h6>
+            <p class="lead">{{ contractor.description|safe }}</p>
+            <h5>Соц.сети: </h5>
+            <div class="d-flex justify-content-end">
+                {% for message in contractor.messages.split %}
+                {% if message %}
+                <a href="{{ message }}" class="badge text-bg-info me-1">{{ message }}</a>
+                <br>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <br>
+            <h5>Ссылки на профили: </h5>
+            <div class="d-flex justify-content-end">
+                {% for link in contractor.link_resume.split %}
+                {% if link %}
+                <a href="{{ link }}" class="badge text-bg-info me-1">{{ link }}</a>
+                <br>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <br>
+            <h5>Специализации: </h5>
+            <div class="d-flex justify-content">
+                {% for specialization in contractor.specialization.all %}
+                {% if specialization %}
+                <a class="badge text-bg-info me-1">{{ specialization }}</a>
+                <br>
+                {% else %}
+                {% endif %}
+                {% endfor %}
+            </div>
+            <br>
+            <h5>SoftSkills: </h5>
+            <div class="d-flex justify-content">
+                {% for link in contractor.softskills.all %}
+                {% if softskills %}
+                <a class="badge text-bg-info me-1">{{ softskills }}</a>
+                <br>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <br>
+            <h5>HardSkills: </h5>
+            <div class="d-flex justify-content">
+                {% for hard in contractor.hardskills.all %}
+                {% if hard %}
+                <a class="badge text-bg-info me-1">{{ hard }}</a>
+                <br>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+
+<h4 align="center"> Авторезуйтесь чтобы войти в свой профиль</h4>
+<h5 align="center"><a href="{% url 'login' %}">Авторизоваться</a></h5>
+{% endif%}
+{% endblock %}

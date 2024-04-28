@@ -1,0 +1,48 @@
+{% extends "dagfreelance/base_dagfreelance.html" %}
+{% load static %}
+{% block title %}Страница профиля{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    <div class="row">
+        <!--    ЭТО ЛЕВАЯ КОЛОНКА КОНТЕНТА ПОСТА -->
+        <div class="col-lg-8">
+            <!--    ЭТО ХЛЕБНЫЕ КРОШКИ -->
+            <nav aria-label="breadcrumb" class="my-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Главная</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ client.user.username }}</li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'client_edit_profile' %}">Редактировать профиль</a> </li>
+                </ol>
+            </nav>
+            <!--    ЭТО ТЕЛО ПОСТА -->
+            <img class="img-fluid rounded" src="{{ client.photo.url }}" alt="" width="300" height="125">
+            <hr>
+            <h6>Краткая информация:</h6>
+            <p class="lead">Имя: {{ client.user.first_name }}</p>
+            <p class="lead">Фамиля: {{ client.user.last_name }}</p>
+            <p class="lead">День рождения: {{ client.date_of_birth }}</p>
+            <p class="lead">Почта: {{ client.user.email }}</p>
+            <p class="lead">Телефон: {{ client.number }}</p>
+            <hr>
+            <h6>О себе:</h6>
+            <p class="lead">{{ client.description|safe }}</p>
+            <h5>Соц.сети: </h5>
+            <div class="d-flex justify-content-end">
+                {% for message in client.messages.split %}
+                {% if message %}
+                <a href="{{ message }}" class="badge text-bg-info me-1">{{ message }}</a>
+                <br>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+
+    <h4 align="center"> Авторезуйтесь чтобы войти в свой профиль</h4>
+<h5 align="center"><a href="{% url 'login' %}">Авторизоваться</a></h5>
+{% endif%}
+{% endblock %}

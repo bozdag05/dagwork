@@ -1,0 +1,30 @@
+{% extends "dagfreelance/base_dagfreelance.html" %}
+{% load static %}
+{% block title %}Главная страница{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <h1 class="my-4 text-center">DagFreelance</h1>
+    <h2 class="my-4 text-center">Welcome for mysite</h2>
+    <div class="row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card">
+            <div class="card-body">
+                <a href="{% url 'client_list' %}"><h4>Страница с заказчиками</h4></a>
+                <img src="https://thumbs.dreamstime.com/b/вектор-характера-босса-работая-бородатый-мужчина-самомоднейшее-113580937.jpg" width="520" height="300">
+            </div>
+        </div>
+        </div>
+        <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <a href="{% url 'contractor_list' %}"><h4>Страница с исполнителями</h4></a>
+                <img src="https://thumbs.dreamstime.com/z/арабский-вектор-работника-офиса-человека-художнической-иллюстрации-119883572.jpg" width="520" height="300">
+            </div>
+        </div>
+        </div>
+</div>
+
+{% endblock %}

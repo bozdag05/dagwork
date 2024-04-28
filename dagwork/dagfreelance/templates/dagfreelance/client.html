@@ -1,0 +1,43 @@
+{% extends "dagfreelance/base_dagfreelance.html" %}
+{% load static %}
+{% block title %}Страница заказчиков{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <h1 class="my-4 text-center">DagFreelance</h1>
+    <h2 class="my-4 text-center">Добропожаловать на страницу с заказчиками</h2>
+    <div class="row">
+        {% for client in clients %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                {% if client.photo %}
+                <img src="{{ client.photo.url }}" alt="" class="card-img-top" width="350" height="350">
+                {% else %}
+                <img src="https://yt3.googleusercontent.com/8e5bJYYDVmJwMLp-ESI9oVlH2AfVNqrlz-KkwebUifhGcLreAx3cu2A28uGt8jPEreaRNHC6nQ=s900-c-k-c0x00ffffff-no-rj" alt="" class="card-img-top" width="350" height="350">
+                {% endif %}
+                <div class="card-body">
+                    <h4>Заказчик: <a href="{{ client.get_absolute_url }}">{{ client.user }}</a></h4>
+                    <br>
+                    <h5>Соц.сети</h5>
+                    {% for message in client.messages.split %}
+                        <a>{{ message }}</a><br>
+                    {% endfor %}
+                    <br>
+                    <h5>О себе</h5>
+                    <p class="card-text">{{ client.description|safe|truncatechars:150 }}</p>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{{ client.get_absolute_url }}" class="btn btn-sm btn-outline-secondary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
