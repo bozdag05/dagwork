@@ -22,8 +22,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('dagfreelance.urls'))
+    path('', include('dagfreelance.urls')) # Прописал путь к urls нашего приложения dagfreelance
 ]
 
+# Настройки для медиа
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

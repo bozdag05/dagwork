@@ -9,10 +9,14 @@ from .models import ClientModel, ContractorModel
 from django.views.generic import ListView, DetailView
 
 
+# Вюха --> Контроллер
+
+# Контроллер главной стр.
 def homeview(request):
     return render(request, template_name='dagfreelance/home.html', context={"title": "DagFreelance"})
 
 
+# Контроллер для авторизации
 def user_login(request):
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
@@ -26,11 +30,13 @@ def user_login(request):
     return render(request, 'dagfreelance/login.html', {"form": form})
 
 
+# Контроллер для выхода
 def user_logout(request):
     logout(request)
     return redirect('home')
 
 
+# Контроллер для регистрации заказчика
 def register_client(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -51,6 +57,7 @@ def register_client(request):
     return render(request, 'dagfreelance/register.html', {"form": form})
 
 
+# Контроллер для редактирования профиля заказчика
 @login_required
 def edit_client(request):
     if request.method == 'POST':
@@ -74,6 +81,7 @@ def edit_client(request):
     return render(request, 'dagfreelance/client_edit_profile.html', context=context)
 
 
+# Контроллер для регистрации исполнителя
 def register_contractor(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -94,11 +102,13 @@ def register_contractor(request):
     return render(request, 'dagfreelance/register.html', {"form": form})
 
 
+# Контроллер для редактирования профиля исполнителя
 @login_required
 def edit_contractor(request):
     if request.method == 'POST':
         form_user = UserEditForm(instance=request.user, data=request.POST, files=request.FILES)
-        form_contractor = ContractorEditForm(instance=request.user.contractormodel, data=request.POST, files=request.FILES)
+        form_contractor = ContractorEditForm(instance=request.user.contractormodel, data=request.POST,
+                                             files=request.FILES)
         if form_user.is_valid() and form_contractor.is_valid():
             form_user.save()
             form_contractor.save()
@@ -117,24 +127,28 @@ def edit_contractor(request):
     return render(request, 'dagfreelance/contractor_edit_profile.html', context=context)
 
 
+# Контроллер для представления списка заказчиков
 class ClientListView(ListView):
     model = ClientModel
     template_name = 'dagfreelance/client.html'
     context_object_name = 'clients'
 
 
+# Контроллер для представления списка исполнителй
 class ContractorListView(ListView):
     model = ContractorModel
     template_name = 'dagfreelance/contractor.html'
     context_object_name = 'contractors'
 
 
+# Контроллер для получения определённой записи заказчика
 class ProfileClient(DetailView):
     model = ClientModel
     template_name = 'dagfreelance/profile_client.html'
     context_object_name = 'client'
 
 
+# Контроллер для получения определённой записи исполнителя
 class ProfileContractor(DetailView):
     model = ContractorModel
     template_name = 'dagfreelance/profile_contractor.html'
