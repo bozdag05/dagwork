@@ -13,7 +13,9 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">Главная</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ client.user.username }}</li>
+                    {% if user.clientmodel.pk == client.pk %}
                     <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'client_edit_profile' %}">Редактировать профиль</a> </li>
+                    {% endif %}
                 </ol>
             </nav>
             <!--    ЭТО ТЕЛО ПОСТА -->
